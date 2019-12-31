@@ -54,10 +54,19 @@ class CountdownViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 120, weight: .regular)
+        
         countdownPicker.delegate = self
         countdownPicker.dataSource = self
         
         countdown.delegate = self
+        
+        countdownPicker.selectRow(1, inComponent: 0, animated: false)
+        countdownPicker.selectRow(30, inComponent: 2, animated: false)
+        
+        countdown.duration = duration
+        
+        updateViews()
     }
     
     // MARK: - Actions
@@ -147,5 +156,6 @@ extension CountdownViewController: UIPickerViewDelegate {
     // This gets called every time a row is moved (and stops moving)
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         countdown.duration = duration
+        updateViews()
     }
 }
